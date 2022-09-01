@@ -11,6 +11,6 @@ while playing:
         print("Correct!!!")
         playing = False
     elif user_choice > pc_choice:
-        print("Higer!!!")
-    elif user_choice < pc_choice:
         print("Lower!!!")
+    elif user_choice < pc_choice:
+        print("Higher!!!")
