@@ -1,5 +1,5 @@
 from requests import get
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup  # beautifulSoup Document 참고
 
 base_url = "https://weworkremotely.com/remote-jobs/search?term="
 search_term = "python"
@@ -16,6 +16,14 @@ else:
         job_posts = job_section.find_all("li")
         job_posts.pop(-1)  # list에서 마지막 항목 <li class="view-all"> 제거
         for post in job_posts:
-            print(post)
-            print(
-                "//////////////////////////////////////////////////////////////////////////////")
+            anchors = post.find_all('a')
+            anchor = anchors[1]
+            link = anchor["href"]
+            company, kind, region = anchor.find_all(
+                "span", class_="company")  # 리스트의 구조와 길이를 알고있을 때 사용가능
+            # 리스트에서 오브젝트처럼 추출.py 참고
+            title = anchor.find("span", class_="title")
+            print(company, kind, region, title)
+            print("//////////")
+            print("//////////")
+            print("//////////")
