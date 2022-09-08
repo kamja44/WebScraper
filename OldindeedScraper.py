@@ -19,4 +19,10 @@ else:
     # job_list 안의 즉, ul태그의 자식 li 태그만 찾는다. reqursive=False옵션을 사용해서 지정 가능하다.
     jobs = job_list.find_all("li", recursive=False)
     # print(len(jobs)) # <- 몇개의 데이터를 검색하는지 확인
-    # for job in jobs:
+    for job in jobs:
+        # find는 찾은 element를 반환하거나 None를 반환한다. 즉, mosaic-zone이 없어야 찾는 데이터
+        zone = job.find("div", class_="mosaic-zone")
+        if zone == None:
+            print("job li")
+        # else:
+        #     print("mosaic li")
