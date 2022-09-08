@@ -10,6 +10,7 @@ response = get(f"{base_url}{search_term}")
 if response.status_code != 200:
     print("Can't Request Page")
 else:
+    results = []
     # response.text <- 소스코드를 text로 가져오고 BeautifulSoup를 이용하여 html로 변환
     soup = BeautifulSoup(response.text, "html.parser")
     # 소스코드(HTML)에서 ul 찾기
@@ -24,5 +25,23 @@ else:
         zone = job.find("div", class_="mosaic-zone")
         if zone == None:
             print("job li")
+            # h2 = job.find("h2", class_="jobTitle")
+            # a = h2.find("a")
+            # 위의 h2와 a를 select문을 이용하여 한 문장으로 사용 가능
+            # anchor = job.select("h2 a")
+            anchor = job.select_one("h2 a")
+            title = anchor["aria-label"]
+            link = anchor["href"]
+            company = job.find("span", class_="companyName")
+            location = job.find("div", class_="companyLocation")
+            job_data = {
+                "link": f"https://kr/indeed.com{link}",
+                "company": company.string,
+                "location": location.string,
+                "position": title,
+            }
+            results.append(job_data)
+    # for result in results:
+    #     print(result, "//////\n//////")
         # else:
         #     print("mosaic li")
